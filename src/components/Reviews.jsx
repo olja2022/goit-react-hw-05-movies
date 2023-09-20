@@ -1,28 +1,22 @@
 import { useEffect, useState } from 'react';
 import { getQuery } from 'services/fetch';
-
 import defaultImg from '../images/noUser.jpg';
-// console.log('defaultImg:', defaultImg);
+
 
 const { useParams, Link } = require('react-router-dom');
-
-// Для приймання динамич. параметрів використовуємо useParams
-
-// інформація про огляди
-// Рендериться на сторінці MovieDetails.
 const Reviews = () => {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('');
 
   const { currentMovie } = useParams();
-  const URL_QUERY_OPTIONS = `movie/${currentMovie}/reviews`; // рядок запиту згідно з API
+  const URL_QUERY_OPTIONS = `movie/${currentMovie}/reviews`;
   const [currentMovieReviews, setCurrentMovieReviews] = useState([]);
-  // console.log('Reviews >> currentMovieReviews:', currentMovieReviews);
+  
 
   useEffect(() => {
     getQuery(URL_QUERY_OPTIONS)
       .then(response => {
-        // console.log('getQuery >> response:', response);
+      
         setCurrentMovieReviews(response.results);
       })
       .catch(error => {
@@ -46,7 +40,7 @@ const Reviews = () => {
           {currentMovieReviews.map(
             ({ author_details, id, author, content, url }) => {
               let currentSrc = author_details.avatar_path;
-              // console.log('currentSrc 1:', currentSrc);
+              
 
               if (currentSrc) {
                 if (currentSrc.includes('www')) {
@@ -58,10 +52,9 @@ const Reviews = () => {
                 }
               } else {
                 currentSrc = defaultImg;
-                // currentSrc = 'images/noUser.jpg'; // ??? чомусь не завантажується такий шлях
-                // Довелось робити через  import defaultImg from '../images/noUser.jpg'
+                
               }
-              // console.log('currentSrc 2:', currentSrc);
+              
 
               return (
                 <div key={id}>

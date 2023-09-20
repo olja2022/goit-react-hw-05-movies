@@ -9,16 +9,16 @@ const Footer = () => {
           marginBottom: '40px',
         }}
       >
-        <h4>Всі права захищені так шокапєць (c)</h4>
+        <h4>Всі права захищені</h4>
         <p style={{ margin: 0 }}>
-          З питань придбання фільмів звертайтесь сюди:
+          З питань придбання фільмів звертайтесь за адресою:
         </p>
         <a
-          href="www.you-don't-have-enough-money-anyway.com"
+          href="www.you-don't-have-enough-money.com"
           target="_blank"
           rel="noreferrer"
         >
-          www.you-don't-have-enough-money-anyway.com
+          www.you-don't-have-enough-money.com
         </a>
       </div>
     </>

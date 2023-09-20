@@ -20,25 +20,18 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-// Сторінка з детальною інформацією про фільм
 const MovieDetails = () => {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('');
-
-  const { currentMovie } = useParams(); // забираю ID фільму з адресного рядку браузера
-  const URL_QUERY_OPTIONS = `movie/${currentMovie}`; // рядок запиту згідно з API
+  const { currentMovie } = useParams(); 
+  const URL_QUERY_OPTIONS = `movie/${currentMovie}`; 
   const [currentMovieResp, setCurrentMovieResp] = useState({});
-
   const location = useLocation();
-  // console.log('MovieDetails >> location:', location);
-
-  const backLinkLocationRef = useRef(location.state ?? '/movies'); // якщо немає location.state (відкрили в новій вкладці), то повернення буде на стартову сторінку
-  // console.log('MovieDetails >> backLinkLocationRef:', backLinkLocationRef);
+  const backLinkLocationRef = useRef(location.state ?? '/movies'); 
 
   useEffect(() => {
     getQuery(URL_QUERY_OPTIONS)
       .then(response => {
-        // console.log('response', response);
         setCurrentMovieResp(response);
       })
       .catch(error => {
@@ -48,7 +41,6 @@ const MovieDetails = () => {
   }, [URL_QUERY_OPTIONS]);
 
   if (status === 'rejected') {
-    // console.log(error.message);
     return (
       <>
         <h2>{`Помилка: ${error.message}`}</h2>
@@ -72,7 +64,6 @@ const MovieDetails = () => {
     genres,
   } = currentMovieResp;
 
-  // Щоб заглушка-зображення не блимала при оновленні сторінки, рендерю лише коли об'єкт не пустий
   return (
     <>
       {Object.keys(currentMovieResp).length !== 0 && (

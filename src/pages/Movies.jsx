@@ -3,25 +3,17 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { getQuery } from 'services/fetch';
 import defaultImg from '../images/noPoster.webp';
 
-const URL_QUERY_OPTIONS = `search/movie`; // рядок запиту згідно з API
-// Пошук фільмів за ключовим словом
+const URL_QUERY_OPTIONS = `search/movie`; 
 const Movies = () => {
-  // Стейти для помилки
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('');
-
-  // Стейт параметрів адресного рядку
-  const [searchParams, setSearchParams] = useSearchParams({}); //? Об'єкт чи пустий рядок?
-
-  // Стейти для фільтру Input
-  const movieName = searchParams.get('query') ?? ''; // для запису у input.value
-  const [foundMovies, setFoundMovies] = useState([]); // масив знайдених фільмів
+  const [searchParams, setSearchParams] = useSearchParams({}); 
+  const movieName = searchParams.get('query') ?? ''; 
+  const [foundMovies, setFoundMovies] = useState([]); 
 
   useEffect(() => {
     getQuery(URL_QUERY_OPTIONS, searchParams)
       .then(response => {
-        // console.log('getQuery >> response:', response);
-        // console.log(response.results);
         setFoundMovies(response.results);
       })
       .catch(error => {
@@ -30,13 +22,10 @@ const Movies = () => {
       });
   }, [searchParams]);
 
-  // Для кнопки повернення з дочірніх елементів
+  
   const location = useLocation();
-  // console.log('Movies >> location:', location);
-
-  // Встановлення в адресний рядок значення з Input.onChange
   const updateInputSearch = ({ target: { value } }) => {
-    const searchObj = value === '' ? {} : { query: value }; // якщо у Input нічого не ввели, то пустий масив
+    const searchObj = value === '' ? {} : { query: value }; 
     setSearchParams(searchObj);
   };
 

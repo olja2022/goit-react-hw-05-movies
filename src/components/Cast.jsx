@@ -3,8 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getQuery } from 'services/fetch';
 import defaultImg from '../images/noUser.jpg';
 
-// Інформація про акторський склад
-// Рендериться на сторінці MovieDetails.
+
 const Cast = () => {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('');
@@ -12,12 +11,11 @@ const Cast = () => {
   const { currentMovie } = useParams();
   const URL_QUERY_OPTIONS = `movie/${currentMovie}/credits`;
   const [currentMovieCast, setCurrentMovieCast] = useState([]);
-  // console.log('Cast >> currentMovieCast:', currentMovieCast);
+  
 
   useEffect(() => {
     getQuery(URL_QUERY_OPTIONS)
       .then(response => {
-        // console.log('getQuery >> response:', response);
         setCurrentMovieCast(response.cast);
       })
       .catch(error => {
@@ -40,11 +38,9 @@ const Cast = () => {
         <div className="accordion" id="accordionExample">
           {currentMovieCast.map(
             ({ id, character, profile_path, name, original_name }) => {
-              // Такий key та селектори в акордеоні довелось робити через те, що трапляються випадки, коли актор у фільмі записаний два рази (помилка у базі бекенду).
-              // А ще один актор може зніматись у декількох ролях і тоді його ролі йдуть через косу лінію.
               const char = character
                 .toLowerCase()
-                .replace(/[^a-zA-Z0-9-_]/g, '') // видаляє всі заборонені в селекторах символи
+                .replace(/[^a-zA-Z0-9-_]/g, '') 
                 .trim();
               return (
                 <div key={`${id}-${char}`}>
